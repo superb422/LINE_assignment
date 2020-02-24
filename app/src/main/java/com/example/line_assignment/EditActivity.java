@@ -123,7 +123,7 @@ public class EditActivity extends AppCompatActivity {
                     if(bitmapData.size() == 0)
                         Toast.makeText(getApplicationContext(), "사진을 첨부해주세요", Toast.LENGTH_SHORT).show();
                 }else{
-                    if(bitmapData.size() ==0){
+                    if((bitmapData.size() ==0)){
                         Toast.makeText(getApplicationContext(), "사진을 첨부해주세요", Toast.LENGTH_SHORT).show();
                     }else {
                         bitmapData.remove(position);
@@ -220,6 +220,11 @@ public class EditActivity extends AppCompatActivity {
         String content = binding.editMemoContent.getText().toString();
         if(title.isEmpty() || content.isEmpty()) {
             Toast.makeText(getApplicationContext(), "내용을 채워주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if((bitmapData.isEmpty())||(bitmapData.size()<2)) {
+            Toast.makeText(getApplicationContext(), "사진을 넣어주세요", Toast.LENGTH_SHORT).show();
             return;
         }
         long now = System.currentTimeMillis(); // 국제적인 표준 시각 UTC 인 1970년 1월 1일 자정부터 현재까지 카운트된 시간을 ms(milliseconds) 단위로 표시
@@ -425,7 +430,7 @@ public class EditActivity extends AppCompatActivity {
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                        if(Mode.equals("Edit"))
+                        if((Mode.equals("Edit")) || (getintent.getExtras().getString("Option")).equals("Write"))
                             onImageLoad(position);
 
                 }
